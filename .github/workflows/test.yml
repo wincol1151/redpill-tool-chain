@@ -1,4 +1,4 @@
-name: 918-6.13
+name: 918-6.4
 
 on:
   workflow_dispatch:
@@ -88,7 +88,7 @@ jobs:
           ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/vmxnet3/rpext-index.json
           ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/e1000/rpext-index.json       
           ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/igb/rpext-index.json
-          
+          ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/e1000e/rpext-index.json
           
           
 
@@ -125,7 +125,7 @@ jobs:
       - name: 上传引导镜像到 github actions
         uses: actions/upload-artifact@v3
         with:
-          name: dsm-${{matrix.platform}}-${{matrix.version}}-06140953
+          name: dsm-${{matrix.platform}}-${{matrix.version}}-6141258
           path: images/redpill-*.img
           if-no-files-found: error
 
