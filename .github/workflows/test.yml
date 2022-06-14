@@ -26,9 +26,11 @@ jobs:
           #  两行一组，删除不需要的版本
          
         
-          - platform: ds3617xs
+          - platform: ds918p
+            version: 6.2.4-25556
+          - platform: ds918p
             version: 7.0.1-42218
-          - platform: ds3617xs
+          - platform: ds918p
             version: 7.1.0-42661
 
         
@@ -69,7 +71,7 @@ jobs:
           sn=`./redpill_tool_chain.sh sn ${{matrix.platform}} | grep 'Serial Number' | awk '{print $3}'`
           sed -i -e "s/1234XXX123/${sn:="1540PDN005308"}/g" -e 's/XXYYXXYYXXYY/0011325D8320/g' ${{matrix.platform}}_user_config.json
 
-         
+          sed -i -e 's/0011325D8320"/&,\n\t"mac2": "0011329A5DD8",\n\t"netif_num": 2/' ${{matrix.platform}}_user_config.json
 
           # 调整synoinfo
           sed -i -e 's/"synoinfo": {},/"synoinfo": {\n\t"maxlanport": "2"\n    },/' ${{matrix.platform}}_user_config.json
@@ -86,7 +88,7 @@ jobs:
           ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/vmxnet3/rpext-index.json
           ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/e1000/rpext-index.json     
           ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/e1000e/rpext-index.json
-         
+          ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/ax88179_178a/rpext-index.json
 
       - name: 添加扩展驱动[dva3221]
         if: matrix.platform == 'dva3221'
@@ -121,7 +123,7 @@ jobs:
       - name: 上传引导镜像到 github actions
         uses: actions/upload-artifact@v3
         with:
-          name: dsm-${{matrix.platform}}-${{matrix.version}}-6141731
+          name: dsm-${{matrix.platform}}-${{matrix.version}}-6142225
           path: images/redpill-*.img
           if-no-files-found: error
 
