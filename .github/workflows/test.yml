@@ -26,12 +26,10 @@ jobs:
           #  两行一组，删除不需要的版本
          
         
-          - platform: ds918p
-            version: 6.2.4-25556
-          - platform: ds918p
-            version: 7.0.1-42218
-          - platform: ds918p
-            version: 7.1.0-42661
+           - platform: ds3622xsp
+             version: 7.0.1-42218
+           - platform: ds3622xsp
+             version: 7.1.0-42661
 
         
 
@@ -84,10 +82,7 @@ jobs:
           ./redpill_tool_chain.sh add https://github.com/tossp/redpill-tool-chain/raw/master/extensions/redpill-boot-wait.json
           ./redpill_tool_chain.sh add https://github.com/tossp/redpill-tool-chain/raw/master/extensions/redpill-acpid.json
           ./redpill_tool_chain.sh add https://github.com/tossp/redpill-tool-chain/raw/master/extensions/redpill-virtio.json
-          ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/r8168/rpext-index.json
-          ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/vmxnet3/rpext-index.json
-          ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/e1000/rpext-index.json     
-          ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/e1000e/rpext-index.json
+          ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/r8168/rpext-index.json          
           ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/r8169/rpext-index.json
 
       - name: 添加扩展驱动[dva3221]
