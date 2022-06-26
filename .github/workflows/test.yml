@@ -71,7 +71,7 @@ jobs:
 
           sed -i -e 's/00E04C44BB72"/&,\n\t"mac2": "001B21360E2F",\n\t"netif_num": 3/' ${{matrix.platform}}_user_config.json
           
-          sed -i -e 's/00E04C44BB72"/&,\n\t"mac3": "001B21360E2E",\n\t"netif_num": 3/' ${{matrix.platform}}_user_config.json
+          sed -i -e 's/001B21360E2F"/&,\n\t"mac3": "001B21360E2E",\n\t"netif_num": 3/' ${{matrix.platform}}_user_config.json
 
           # 调整synoinfo
           sed -i -e 's/"synoinfo": {},/"synoinfo": {\n\t"maxlanport": "2"\n    },/' ${{matrix.platform}}_user_config.json
