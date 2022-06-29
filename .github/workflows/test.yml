@@ -26,11 +26,9 @@ jobs:
           #  两行一组，删除不需要的版本
           
 
-          - platform: ds3615xs
-            version: 6.2.4-25556
-          - platform: ds3615xs
+          - platform: ds920p
             version: 7.0.1-42218
-          - platform: ds3615xs
+          - platform: ds920p
             version: 7.1.0-42661
 
           
@@ -65,13 +63,15 @@ jobs:
           cp sample_user_config.json ${{matrix.platform}}_user_config.json
 
           # 调整VID和PID
-          sed -i -e 's/0x0001/0x1642/g' -e 's/0x46f4/0x0951/g' ${{matrix.platform}}_user_config.json
+          sed -i -e 's/0x0001/0x1000/g' -e 's/0x46f4/0x090C/g' ${{matrix.platform}}_user_config.json
 
           # 调整SN和MAC,最好使用 actions secrets 引入,SN应该是固定值不应该每次生成
           sn=`./redpill_tool_chain.sh sn ${{matrix.platform}} | grep 'Serial Number' | awk '{print $3}'`
-          sed -i -e "s/1234XXX123/${sn:="1430LWN011812"}/g" -e 's/XXYYXXYYXXYY/C03FD5364BF1/g' ${{matrix.platform}}_user_config.json
+          sed -i -e "s/1234XXX123/${sn:="2030SBRP5JPCQ"}/g" -e 's/XXYYXXYYXXYY/00E04C44BB72/g' ${{matrix.platform}}_user_config.json
 
-         
+          sed -i -e 's/00E04C44BB72"/&,\n\t"mac2": "001B21360E2F",\n\t"netif_num": 3/' ${{matrix.platform}}_user_config.json
+          
+          sed -i -e 's/001B21360E2F"/&,\n\t"mac3": "001B21360E2E",\n\t"netif_num": 3/' ${{matrix.platform}}_user_config.json
 
           # 调整synoinfo
           sed -i -e 's/"synoinfo": {},/"synoinfo": {\n\t"maxlanport": "3"\n    },/' ${{matrix.platform}}_user_config.json
@@ -121,7 +121,7 @@ jobs:
       - name: 上传引导镜像到 github actions
         uses: actions/upload-artifact@v3
         with:
-          name: dsm-${{matrix.platform}}-${{matrix.version}}-6290732
+          name: dsm-${{matrix.platform}}-${{matrix.version}}-6291300
           path: images/redpill-*.img
           if-no-files-found: error
 
