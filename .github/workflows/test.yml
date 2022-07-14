@@ -1,4 +1,4 @@
-name: ds3615--626
+name: ds3615--714
 
 on:
   workflow_dispatch:
@@ -69,12 +69,9 @@ jobs:
           sn=`./redpill_tool_chain.sh sn ${{matrix.platform}} | grep 'Serial Number' | awk '{print $3}'`
           sed -i -e "s/1234XXX123/${sn:="2030SBRP5JPCQ"}/g" -e 's/XXYYXXYYXXYY/00E04C44BB72/g' ${{matrix.platform}}_user_config.json
 
-          sed -i -e 's/00E04C44BB72"/&,\n\t"mac2": "001B21360E2F",\n\t"netif_num": 3/' ${{matrix.platform}}_user_config.json
-          
-          sed -i -e 's/001B21360E2F"/&,\n\t"mac3": "001B21360E2E",\n\t"netif_num": 3/' ${{matrix.platform}}_user_config.json
 
           # 调整synoinfo
-          sed -i -e 's/"synoinfo": {},/"synoinfo": {\n\t"maxlanport": "3"\n    },/' ${{matrix.platform}}_user_config.json
+          sed -i -e 's/"synoinfo": {},/"synoinfo": {\n\t"maxlanport": "1"\n    },/' ${{matrix.platform}}_user_config.json
 
           cat ${{matrix.platform}}_user_config.json
 
@@ -86,7 +83,7 @@ jobs:
           ./redpill_tool_chain.sh add https://github.com/tossp/redpill-tool-chain/raw/master/extensions/redpill-virtio.json                   
           ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/r8169/rpext-index.json
           ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/r8168/rpext-index.json
-          ./redpill_tool_chain.sh add https://raw.githubusercontent.com/pocopico/rp-ext/master/igb/rpext-index.json
+          
 
       - name: 添加扩展驱动[dva3221]
         if: matrix.platform == 'dva3221'
@@ -121,7 +118,7 @@ jobs:
       - name: 上传引导镜像到 github actions
         uses: actions/upload-artifact@v3
         with:
-          name: dsm-${{matrix.platform}}-${{matrix.version}}-6291300
+          name: dsm-${{matrix.platform}}-${{matrix.version}}-7141308
           path: images/redpill-*.img
           if-no-files-found: error
 
