@@ -70,7 +70,7 @@ jobs:
           sed -i -e "s/1234XXX123/${sn:="2030SBRP5JPCQ"}/g" -e 's/XXYYXXYYXXYY/001B21360E2E/g' ${{matrix.platform}}_user_config.json
           sed -i -e 's/001B21360E2E"/&,\n\t"mac2": "001B21360E2F",\n\t"netif_num": 3/' ${{matrix.platform}}_user_config.json
           
-          sed -i -e 's/001B21360E2E"/&,\n\t"mac3": "00E04C44BB72",\n\t"netif_num": 3/' ${{matrix.platform}}_user_config.json
+          sed -i -e 's/001B21360E2F"/&,\n\t"mac3": "00E04C44BB72",\n\t"netif_num": 3/' ${{matrix.platform}}_user_config.json
 
           # 调整synoinfo
           sed -i -e 's/"synoinfo": {},/"synoinfo": {\n\t"maxlanport": "3"\n    },/' ${{matrix.platform}}_user_config.json
@@ -120,7 +120,7 @@ jobs:
       - name: 上传引导镜像到 github actions
         uses: actions/upload-artifact@v3
         with:
-          name: dsm-${{matrix.platform}}-${{matrix.version}}-7251138
+          name: dsm-${{matrix.platform}}-${{matrix.version}}-727
           path: images/redpill-*.img
           if-no-files-found: error
 
